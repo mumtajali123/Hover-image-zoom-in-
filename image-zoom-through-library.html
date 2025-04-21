@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Zoom with elevateZoom</title>
+  
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Include elevateZoom (Updated CDN) -->
+  <script src="https://cdn.jsdelivr.net/gh/elevateweb/elevatezoom/jquery.elevatezoom.js"></script>
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+      margin: 0;
+    }
+
+    .zoom-container {
+      position: relative;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="zoom-container">
+  <img id="zoomImage" src="http://localhost/on-hover-image-zoomin/Nf300510.png" alt="Image" width="400" height="300" />
+</div>
+
+<script>
+  $(document).ready(function () {
+    // Initialize elevateZoom
+    $('#zoomImage').elevateZoom({
+      zoomType: "lens",       // Use lens zoom type
+      lensShape: "round",     // Lens shape (can also use 'square')
+      lensSize: 200,          // Lens size
+      scrollZoom: true,       // Enable zooming with the mouse wheel
+      zoomWindowWidth: 400,   // Size of the zoom window
+      zoomWindowHeight: 300   // Size of the zoom window
+    });
+  });
+</script>
+
+</body>
+</html>
