@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Zoom with Thumbnail Hover</title>
+  
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Include elevateZoom (Updated CDN) -->
+  <script src="https://cdn.jsdelivr.net/gh/elevateweb/elevatezoom/jquery.elevatezoom.js"></script>
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      background: #f0f0f0;
+      margin: 0;
+      text-align: center;
+    }
+
+    .zoom-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .thumbnail-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .thumbnail-container img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .thumbnail-container img:hover {
+      transform: scale(1.1);
+    }
+
+    #mainImage {
+      width: 400px;
+      height: 300px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+<div class="zoom-container">
+  <img id="mainImage" src="http://localhost/on-hover-image-zoomin/Nf300510.png" alt="Main Image" />
+</div>
+
+<div class="thumbnail-container">
+  <img src="http://localhost/on-hover-image-zoomin/NF300560.png" alt="Thumbnail 1" class="thumbnail" data-large="http://localhost/on-hover-image-zoomin/Nf300560.png" />
+  <img src="http://localhost/on-hover-image-zoomin/Nf300570.png" alt="Thumbnail 2" class="thumbnail" data-large="http://localhost/on-hover-image-zoomin/Nf300570.png" />
+  <img src="http://localhost/on-hover-image-zoomin/Nf300600.png" alt="Thumbnail 3" class="thumbnail" data-large="http://localhost/on-hover-image-zoomin/Nf300600.png" />
+  <img src="http://localhost/on-hover-image-zoomin/Nf300770.png" alt="Thumbnail 4" class="thumbnail" data-large="http://localhost/on-hover-image-zoomin/Nf300770.png" />
+  <img src="http://localhost/on-hover-image-zoomin/Nf300780.png" alt="Thumbnail 5" class="thumbnail" data-large="http://localhost/on-hover-image-zoomin/Nf300780.png" />
+</div>
+
+<script>
+  $(document).ready(function () {
+    // Function to destroy and reinitialize the zoom
+    function reinitializeZoom(imageSrc) {
+      // Destroy previous zoom
+      $('#mainImage').elevateZoom().removeData('elevateZoom');
+      
+      // Update the main image source
+      $('#mainImage').attr('src', imageSrc);
+      $('#mainImage').data('zoom-image', imageSrc);  // Update the zoom image source
+
+      // Reinitialize elevateZoom
+      $('#mainImage').elevateZoom({
+        zoomType: "lens",
+        lensShape: "square",
+        lensSize: 200,
+        scrollZoom: true,
+        zoomWindowWidth: 400,
+        zoomWindowHeight: 300
+      });
+    }
+
+    // Initialize elevateZoom on the main image
+    reinitializeZoom($('#mainImage').attr('src'));
+
+    // Change main image and reinitialize zoom on thumbnail hover
+    $('.thumbnail').on('mouseenter', function () {
+      var newImage = $(this).data('large');  // Get the large image URL from the thumbnail data attribute
+      reinitializeZoom(newImage); // Change the source and reinitialize zoom
+    });
+  });
+</script>
+
+</body>
+</html>
